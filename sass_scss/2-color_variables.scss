@@ -6,11 +6,12 @@ $background_colors: #6D6D6D;
 body {
     color: $html-text_color;
     background-color: $background_colors;
-    h2 {
-        background-color: $background_colors;
-    }
 }
 
 p {
     color: $html-text_color;
+}
+
+h2 {
+    background-color: $background_colors;
 }
