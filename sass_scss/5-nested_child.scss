@@ -5,7 +5,7 @@ $text_color_else: #FF0000;
 
 body {
     color: $text_color_body;
-    > .red:first-child {
+    > .red {
         color: $text_color_else;
     }
 }
