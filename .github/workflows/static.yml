@@ -33,6 +33,10 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
+      - name: List all files for debugging
+        run: find .
+      - name: List atlas-web_front_end directory contents for debugging
+        run: find atlas-web_front_end
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
