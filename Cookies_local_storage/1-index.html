@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head> 
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title> Project 0 </title>
+    </head>
+    <body>
+        <h1>Login to the website</h1>
+        <input type="text" placeholder="First Name" id="firstname">
+        <input type="text" placeholder="Email" id="email">
+        <button onclick="setCookies()">Log me in</button>
+        <h1> Cookies </h1>
+        <button onclick="showCookies()">Show the cookies</button>
+
+        <script>
+            // Function to save the cookies from the user input fields.
+            // Added Expiration date - Project 1 BJC
+            function setCookies() {
+                var firstname = document.getElementById('firstname').value;
+                var email = document.getElementById('email').value;
+                var expDate = new Date();
+                expDate.setDate(expDate.getDate() + 10);
+                document.cookie = "firstname=" + firstname + "; path=/";
+                document.cookie = "email=" + email + "; path=/";
+                document.cookie = "expires=" + expDate.toUTCString() + "; path=/";
+            }
+
+            // Function to displaqy the cookies.
+            function showCookies() {
+                    var cookies = document.cookie.split('; ').reduce(function(prev, current){
+                        var [name, ...value] = current.split('=');
+                        prev[name] = value.join('=');
+                        return prev;
+                    }, {});
+                    var p = document.createElement('p');
+                    p.innerHTML = "Cookies: " + JSON.stringify(cookies);
+        
+                    document.body.appendChild(p);  
+                }
+            
+        </script>
+    </body>
+</html>
