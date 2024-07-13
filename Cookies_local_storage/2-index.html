@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head> 
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title> Project 0 </title>
+    </head>
+    <body>
+        <h1>Login to the website</h1>
+        <input type="text" placeholder="First Name" id="firstname">
+        <input type="text" placeholder="Email" id="email">
+        <button onclick="setCookies()">Log me in</button>
+        <h1> Cookies </h1>
+        <button onclick="showCookies()">Show the cookies</button>
+        <button onclick="clearDisplay()">Clear Display</button>
+        <div id="cookiesDisplay"></div>
+        <h1>Cookie Search</h1>
+        <input type="text" placeholder="Cookie Name" id="cookieName">
+        <button onclick="searchCookie()">Search</button>
+        <div id="searchResult"></div>
+
+        <script>
+            // Function to save the cookies from the user input fields.
+            // Added Expiration date - Project 1 BJC
+            function setCookies() {
+                var firstname = document.getElementById('firstname').value;
+                var email = document.getElementById('email').value;
+                var expDate = new Date();
+                expDate.setDate(expDate.getDate() + 10);
+                var expires = "expires=" + expDate.toUTCString() +";";
+                document.cookie = "firstname=" + firstname +"; "+ expires + "; path=/";
+                document.cookie = "email=" + email + "; " + expires + "; path=/";
+            }
+
+            // Function to displaqy the cookies.
+            function showCookies() {
+                    var cookies = document.cookie.split('; ').reduce(function(prev, current){
+                        var [name, ...value] = current.split('=');
+                        prev[name] = value.join('=');
+                        return prev;
+                    }, {});
+
+                    var email = cookies.email || 'N/A';
+                    var firstname = cookies.firstname || 'N/A';
+
+                    // I'm aware that the task says email + firstname. but I'm adding Expiration date too.
+                    var expires = cookies.expires || 'N/A';
+
+                    var p = document.createElement('p');
+                    p.innerHTML = "Email: "+ email + " - Firstname: " + firstname + " - Expires: "+ expires;
+                    p.className = "Cookies-Paragraph";
+                    document.body.appendChild(p);  
+                }
+            function clearDisplay() {
+                var Paragraphs = document.querySelectorAll('.Cookies-Paragraph');
+                Paragraphs.forEach(function(p) {
+                p.remove();     
+                });
+            }
+            // Function to return a Cookie
+            function getCookie(name) {
+                var cookies = document.cookie.split('; ');
+                for (var count = 0; count < cookies.length; count++) {
+                    var cookie = cookies[count];
+                    var [cookieName, ...cookieValue] = cookie.split('=');
+                    if (cookieName === name) {
+                        return cookieValue.join('=');
+                    }
+                }
+                    return '';
+            }
+            function searchCookie() {
+                var searchValue = document.getElementById('cookieName').value;
+            var cookies = document.cookie.split('; ').reduce(function(prev, current){
+                var [name, ...value] = current.split('=');
+                prev[name] = value.join('=');
+                return prev;
+            }, {});
+            var result = document.getElementById('searchResult');
+            // Clear previous results to keep the cookies from stacking
+            result.innerHTML = '';
+
+            // Search by name
+            if (cookies[searchValue]) {
+                var p = document.createElement('p');
+                p.innerHTML = "Cookie Found: " + cookies[searchValue];
+                result.appendChild(p);
+                return;
+            }
+
+            // Search by value
+            for (var name in cookies) {
+                if (cookies[name] === searchValue) {
+                    var p = document.createElement('p');
+                    p.innerHTML = "Cookie Found: " + name + " = " + cookies[name]
+                    result.appendChild(p);
+                    return;
+                }
+            }
+
+            var p = document.createElement('p');
+            p.innerHTML = 'Cookie not found';
+            result.appendChild(p);
+            }
+        </script>
+    </body>
+</html>
