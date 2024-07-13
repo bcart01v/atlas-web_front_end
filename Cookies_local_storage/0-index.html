@@ -12,7 +12,6 @@
         <button onclick="setCookies()">Log me in</button>
         <h1> Cookies </h1>
         <button onclick="showCookies()">Show the cookies</button>
-        <div id="cookiesDisplay"></div>
 
         <script>
             // Function to save the cookies from the user input fields.
@@ -30,7 +29,6 @@
                         prev[name] = value.join('=');
                         return prev;
                     }, {});
-                     // Create a new paragraph element
                     var p = document.createElement('p');
                     p.innerHTML = "Cookies: " + JSON.stringify(cookies);
         
