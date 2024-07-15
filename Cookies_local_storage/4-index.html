@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head> 
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Remember to update this BEN -->
+        <title> Project 4 </title>
+        <style>
+            .hidden { display: none; }
+            .logout-link { font-style: italic; margin-left: 10px; cursor: pointer;}
+        </style>
+         <script src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+    </head>
+
+    <body onload="showWelcomeMessageOrForm()">
+        <!-- Cleared out previous HTML as it was confusing me with my bad formatting.-->
+        <div id="loginForm">
+            <h2> Login </h2>
+            <input type="text" placeholder="First Name" id="firstname">
+            <input type="text" placeholder="Email" id="email">
+            <button onclick="setCookiesAndShowWelcomeMessage()">Login</button>
+        </div>
+        <div id="welcomeMessage"></div>
+
+        <script>
+            // Function to save the cookies from the user input fields.
+            // Added Expiration date - Project 1 BJC
+            // Keeping expiration date.
+            // Removed Unused Functions and added JS-Cookie.
+
+            // ===============================
+            // Function to ShowForm
+            // ===============================
+
+            function showForm() {
+                var formContainer = document.getElementById('loginForm');
+                formContainer.classList.remove('hidden');
+
+                var welcomeMessage = document.getElementById('welcomeMessage');
+                welcomeMessage.innerHTML = ' ';
+            }
+
+            // ===============================
+            // Function to HideForm
+            // ===============================
+
+            function hideForm() {
+                var formContainer = document.getElementById('loginForm');
+                formContainer.classList.add('hidden');
+            }
+
+            // ===============================
+            // Function to Delete Cookies and Show Form
+            // ===============================
+
+            function deleteCookiesAndShowForm() {
+                Cookies.remove('firstname');
+                Cookies.remove('email');
+                showForm();
+            }
+
+            // ===============================
+            // function to determine to show Welcome Message or Form
+            // ===============================
+
+            function showWelcomeMessageOrForm() {
+                var firstname = Cookies.get('firstname');
+                if (firstname) {
+                    var welcomeMessage = document.getElementById('welcomeMessage');
+                    welcomeMessage.innerHTML = '<h1> Welcome: ' + firstname + ' <span class="logout-link" onclick="deleteCookiesAndShowForm()">(logout)</span></h1>';
+                    hideForm();
+                } else {
+                    showForm();
+                }
+            }
+
+            // ===============================
+            // function to Set Cookies and Show Welcome Message
+            // ===============================
+
+            function setCookiesAndShowWelcomeMessage() {
+                var firstname = document.getElementById('firstname').value;
+                var email = document.getElementById('email').value;
+                Cookies.set('firstname', firstname, { expires: 10});
+                Cookies.set('email', email, { expires:10 });
+                showWelcomeMessageOrForm();
+            }
+        </script>
+    </body>
+</html>
